@@ -186,7 +186,7 @@
   .real-visual {
     position: relative; aspect-ratio: 16/10; overflow: hidden;
   }
-  .real-visual-bg { position: absolute; inset: 0; transition: transform .8s var(--ease); }
+  .real-visual-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
   .real-card:hover .real-visual-bg { transform: scale(1.05); }
 
   .real-visual-bg.v1 { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%), linear-gradient(135deg, #5e17bb 0%, #8b3df2 60%, #c09bff 100%); }
@@ -360,7 +360,7 @@
       <!-- 1 -->
       <article class="real-card reveal" data-kind="reemploi">
         <div class="real-visual">
-          <div class="real-visual-bg v1"></div>
+          <img class="real-visual-bg" src="gtm-graviers.jpg" alt="GTM Les graviers — Villeneuve-Saint-Georges" />
           <div class="real-grain"></div>
           <span class="real-kind">Réemploi</span>
         </div>
