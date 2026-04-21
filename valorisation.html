@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Valorisation des matériaux — Revali</title>
+<meta name="description" content="Revali valorise les déchets de vos chantiers : diagnostic, dépose, logistique vers les spécialistes du réemploi et reporting carbone." />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --violet: #5e17bb;
+    --violet-deep: #3d0a85;
+    --violet-soft: #f3ecff;
+    --violet-ghost: #faf6ff;
+    --ink: #14061f;
+    --ink-soft: #4b3b5f;
+    --ink-faint: #8879a0;
+    --line: #ece4fa;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --shadow-soft: 0 30px 80px -30px rgba(94,23,187,.25);
+    --shadow-hover: 0 40px 100px -20px rgba(94,23,187,.35);
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: var(--ink); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============ NAV ============ */
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    max-width: 1200px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 28px;
+  }
+  .logo {
+    font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 22px;
+    letter-spacing: -.01em; color: var(--violet);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .logo img { height: 28px; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 28px; font-size: 14.5px; }
+  .nav-links a {
+    color: var(--ink-soft); font-weight: 500; position: relative; padding: 8px 0;
+    transition: color .25s var(--ease);
+  }
+  .nav-links a:hover { color: var(--violet); }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px;
+    background: var(--violet); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s var(--ease);
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a.nav-cta,
+  .nav-links a.nav-cta:hover {
+    padding: 11px 20px; font-size: 14px; color: #fff;
+    background: var(--violet); border-radius: 999px;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .nav-links a.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(94,23,187,.5); }
+  .nav-links a.nav-cta::after { display: none; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 100px 28px 80px;
+    background:
+      radial-gradient(circle at 85% 10%, rgba(139,61,242,.14), transparent 55%),
+      radial-gradient(circle at 10% 90%, rgba(94,23,187,.10), transparent 50%),
+      var(--violet-ghost);
+  }
+  .hero-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line);
+    color: var(--violet); font-size: 12px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--violet); }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(40px, 6.2vw, 68px); line-height: 1.02; letter-spacing: -.035em;
+    margin: 0 0 24px;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--violet) 0%, #8b3df2 60%, #c09bff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-lede {
+    font-size: 19px; color: var(--ink-soft); max-width: 62ch; margin: 0 auto 32px;
+  }
+  .hero-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 26px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+  }
+  .btn-primary { background: var(--violet); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -14px rgba(94,23,187,.5); background: var(--violet-deep); }
+  .btn-ghost { background: #fff; color: var(--violet); border: 1px solid var(--line); }
+  .btn-ghost:hover { background: var(--violet-soft); border-color: var(--violet-soft); }
+
+  /* ============ SECTION COMMUN ============ */
+  section { padding: 100px 28px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .container-sm { max-width: 820px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--violet); font-weight: 700; margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(30px, 4vw, 44px); letter-spacing: -.025em; line-height: 1.1;
+    margin: 0 0 20px;
+  }
+  .section-lede { font-size: 17px; color: var(--ink-soft); max-width: 58ch; }
+
+  /* ============ PROCESS (3 étapes) ============ */
+  .process { background: var(--violet-ghost); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; position: relative; }
+  .steps::before {
+    content: ""; position: absolute; top: 52px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--violet) 0%, #c09bff 100%);
+    opacity: .35; z-index: 0;
+  }
+  .step {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-md);
+    padding: 32px 28px; position: relative; z-index: 1;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  }
+  .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); border-color: transparent; }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--violet); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 24px -8px rgba(94,23,187,.5);
+  }
+  .step h3 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700;
+    letter-spacing: -.015em; margin: 0 0 10px; line-height: 1.2;
+  }
+  .step p { color: var(--ink-soft); font-size: 14.5px; margin: 0; }
+
+  /* ============ BÉNÉFICES ============ */
+  .benefices { background: #fff; }
+  .ben-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .ben {
+    display: flex; gap: 18px; align-items: flex-start;
+    padding: 26px; border: 1px solid var(--line); border-radius: var(--radius-md);
+    background: #fff;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  }
+  .ben:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); border-color: transparent; }
+  .ben-icon {
+    flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px;
+    background: var(--violet-soft); color: var(--violet);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ben h4 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700;
+    letter-spacing: -.01em; margin: 0 0 6px;
+  }
+  .ben p { color: var(--ink-soft); font-size: 14.5px; margin: 0; }
+
+  /* ============ POUR QUI ============ */
+  .pour-qui { background: var(--ink); color: #fff; }
+  .pour-qui .section-eyebrow { color: #c09bff; }
+  .pour-qui .section-lede { color: rgba(255,255,255,.7); }
+  .pq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+  .pq-card {
+    padding: 26px; border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-md);
+    background: rgba(255,255,255,.03);
+    transition: transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+  }
+  .pq-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.06); border-color: rgba(192,155,255,.3); }
+  .pq-card h4 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700;
+    letter-spacing: -.01em; margin: 0 0 8px; color: #fff;
+  }
+  .pq-card p { color: rgba(255,255,255,.65); font-size: 13.5px; margin: 0; line-height: 1.5; }
+
+  /* ============ RÉALISATIONS ============ */
+  .cas { background: var(--violet-ghost); }
+  .cas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .cas-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  }
+  .cas-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: transparent; }
+  .cas-visual {
+    aspect-ratio: 16/10; position: relative; overflow: hidden;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%),
+                linear-gradient(135deg, var(--violet) 0%, #8b3df2 60%, #c09bff 100%);
+  }
+  .cas-visual .grain {
+    position: absolute; inset: 0; opacity: .3; mix-blend-mode: overlay;
+    background-image: radial-gradient(rgba(255,255,255,.25) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  .cas-kind {
+    position: absolute; top: 16px; left: 16px;
+    padding: 5px 11px; border-radius: 999px;
+    background: rgba(255,255,255,.18); backdrop-filter: blur(10px);
+    color: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .cas-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+  .cas-meta { font-size: 13px; color: var(--ink-faint); margin-bottom: 8px; }
+  .cas-meta .cas-client { color: var(--violet); font-weight: 600; }
+  .cas-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700;
+    letter-spacing: -.02em; margin: 0 0 10px; line-height: 1.2;
+  }
+  .cas-desc { color: var(--ink-soft); font-size: 14px; margin: 0 0 16px; flex: 1; }
+  .cas-kpis { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+  .cas-kpi {
+    display: inline-flex; padding: 5px 10px; border-radius: 999px;
+    background: var(--violet-soft); color: var(--violet);
+    font-size: 12px; font-weight: 500;
+  }
+  .cas-kpi strong { font-weight: 700; }
+  .cas-link { text-align: center; margin-top: 40px; }
+  .cas-link a {
+    font-weight: 600; color: var(--violet);
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 0; position: relative;
+  }
+  .cas-link a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px;
+    background: var(--violet); transform: scaleX(1); transform-origin: left;
+    transition: transform .3s var(--ease);
+  }
+  .cas-link a:hover::after { transform: scaleX(.85); }
+
+  /* ============ ESTIMATION (CALCULATEUR TJM) ============ */
+  .estim { background: #fff; }
+  .calc {
+    max-width: 680px; margin: 48px auto 0;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 44px 40px; box-shadow: var(--shadow-soft);
+  }
+  .calc-tabs {
+    display: flex; gap: 6px; background: var(--violet-ghost); padding: 6px;
+    border-radius: 999px; margin: 0 auto 36px; width: fit-content;
+  }
+  .calc-tab {
+    border: 0; background: transparent; cursor: pointer;
+    padding: 10px 22px; border-radius: 999px;
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    color: var(--ink-soft);
+    transition: color .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .calc-tab:hover { color: var(--violet); }
+  .calc-tab.active {
+    background: var(--violet); color: #fff;
+    box-shadow: 0 8px 18px -6px rgba(94,23,187,.45);
+  }
+  .calc-input {
+    display: flex; align-items: center; justify-content: center; gap: 20px;
+    margin-bottom: 28px;
+  }
+  .calc-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--line); background: #fff; color: var(--violet);
+    font-size: 22px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+    font-family: inherit;
+  }
+  .calc-btn:hover { background: var(--violet-soft); border-color: var(--violet-soft); }
+  .calc-btn:active { transform: scale(.94); }
+  .calc-value { display: flex; align-items: baseline; gap: 10px; min-width: 150px; justify-content: center; }
+  .calc-value input {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 56px; color: var(--ink); text-align: center;
+    border: 0; background: transparent; width: 90px;
+    -moz-appearance: textfield; padding: 0; letter-spacing: -.03em;
+  }
+  .calc-value input:focus { outline: none; }
+  .calc-value input::-webkit-outer-spin-button,
+  .calc-value input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .calc-unit {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+    font-size: 20px; color: var(--ink-soft);
+  }
+  .calc-output { text-align: center; }
+  .calc-detail { font-size: 14px; color: var(--ink-faint); margin-bottom: 10px; }
+  .calc-total {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 52px; letter-spacing: -.03em; line-height: 1;
+    background: linear-gradient(135deg, var(--violet) 0%, #8b3df2 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .calc-total .calc-hb {
+    font-size: 22px; color: var(--violet);
+    -webkit-text-fill-color: var(--violet);
+    margin-left: 4px;
+  }
+  .calc-note {
+    font-size: 13px; color: var(--ink-faint); text-align: center;
+    margin: 28px auto 28px; max-width: 52ch; line-height: 1.55;
+  }
+  .calc-cta { text-align: center; }
+
+  /* ============ CTA FINAL ============ */
+  .cta-final { background: linear-gradient(135deg, var(--violet) 0%, var(--violet-deep) 100%); color: #fff; text-align: center; }
+  .cta-final h2 {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(30px, 4vw, 44px); letter-spacing: -.025em; line-height: 1.1;
+    margin: 0 0 16px;
+  }
+  .cta-final p { color: rgba(255,255,255,.8); max-width: 56ch; margin: 0 auto 32px; font-size: 17px; }
+  .cta-final .btn-primary { background: #fff; color: var(--violet); }
+  .cta-final .btn-primary:hover { background: #fff; color: var(--violet-deep); transform: translateY(-2px); box-shadow: 0 18px 40px -14px rgba(0,0,0,.3); }
+
+  /* ============ FOOTER ============ */
+  footer { padding: 48px 28px; background: var(--ink); color: rgba(255,255,255,.6); font-size: 13.5px; }
+  .foot {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .foot a { color: rgba(255,255,255,.85); margin-left: 18px; }
+  .foot a:hover { color: #fff; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .ben-grid { grid-template-columns: 1fr; }
+    .pq-grid { grid-template-columns: 1fr; }
+    .cas-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+  @media (max-width: 540px) {
+    .calc { padding: 28px 20px; }
+    .calc-value input { font-size: 42px; width: 74px; }
+    .calc-total { font-size: 40px; }
+    .calc-unit { font-size: 18px; }
+    .calc-btn { width: 42px; height: 42px; font-size: 20px; }
+  }
+
+  /* ============ REVEAL ============ */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <a class="logo" href="index.html">
+      <img src="logo.png" alt="" onerror="this.style.display='none'" />
+    
+    </a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="realisations.html">Nos réalisations</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-cta" href="https://calendly.com/benjamin-sebahoun/revali-estimez-vos-besoins" target="_blank" rel="noopener">Prendre RDV</a>
+    </div>
+  </nav>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow reveal"><span class="dot"></span>Offre Valorisation</span>
+    <h1 class="reveal">Offrez une <span class="accent">seconde vie</span> à vos déchets avec Revali.</h1>
+    <p class="hero-lede reveal">Revali vous accompagne dans la valorisation des déchets de vos chantiers. Peu importe vos déchets, nos équipes vous aident à gagner du temps sur la reprise de vos matériaux, à organiser la logistique vers les spécialistes du réemploi et à faire des économies de carbone.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-primary" href="https://calendly.com/benjamin-sebahoun/revali-estimez-vos-besoins" target="_blank" rel="noopener">Prendre RDV</a>
+      <a class="btn btn-ghost" href="#process">Comment ça marche</a>
+    </div>
+  </div>
+</header>
+
+<!-- PROCESS -->
+<section id="process" class="process">
+  <div class="container">
+    <div class="container-sm">
+      <div class="section-eyebrow reveal">Comment ça marche</div>
+      <h2 class="section-title reveal">Trois étapes, de vos déchets à leur seconde vie.</h2>
+      <p class="section-lede reveal">Un parcours simple, qui s'articule avec le diagnostic PEMD réglementaire — pour que chaque matériau trouve un repreneur plutôt qu'une benne.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Diagnostic réemploi</h3>
+        <p>Suite au diagnostic PEMD, nos équipes recherchent les meilleurs acteurs de la filière du réemploi pour reprendre vos déchets et matériaux non utilisés.</p>
+      </article>
+
+      <article class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Dépose & logistique</h3>
+        <p>Une fois vos matériaux déposés, nous organisons la logistique pour acheminer les matériaux vers les différents repreneurs — au bon moment, avec les bons transporteurs.</p>
+      </article>
+
+      <article class="step reveal">
+        <div class="step-num">3</div>
+        <h3>Reconditionnement & réemploi</h3>
+        <p>Vos matériaux sont stockés et reconditionnés par les repreneurs, puis réemployés sur de nouveaux projets de construction — participant au cercle vertueux de l'économie circulaire.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- BÉNÉFICES -->
+<section class="benefices">
+  <div class="container">
+    <div class="container-sm">
+      <div class="section-eyebrow reveal">Ce que vous gagnez</div>
+      <h2 class="section-title reveal">Moins de déchets, plus de temps, une empreinte réduite.</h2>
+      <p class="section-lede reveal">L'objectif : que la reprise de vos matériaux devienne un réflexe — et un atout réglementaire — plutôt qu'une contrainte chantier.</p>
+    </div>
+
+    <div class="ben-grid">
+      <div class="ben reveal">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <div>
+          <h4>Un gain de temps sur la reprise</h4>
+          <p>Vos équipes identifient les gisements, nous trouvons les repreneurs. Plus besoin de contacter dix filières : un seul interlocuteur coordonne la sortie des matériaux.</p>
+        </div>
+      </div>
+
+      <div class="ben reveal">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="15" height="11" rx="2"/><path d="M18 11h3v6a1 1 0 0 1-1 1h-2"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+        </div>
+        <div>
+          <h4>Une logistique orchestrée</h4>
+          <p>Dépose, enlèvement, acheminement vers les repreneurs : on cale le calendrier avec vos équipes travaux pour que rien ne bloque le chantier.</p>
+        </div>
+      </div>
+
+      <div class="ben reveal">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <div>
+          <h4>Des économies de carbone</h4>
+          <p>Chaque tonne réorientée vers le réemploi, c'est des émissions évitées. Un rapport CO₂ par chantier, directement utilisable dans vos bilans RSE et CSRD.</p>
+        </div>
+      </div>
+
+      <div class="ben reveal">
+        <div class="ben-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 5-4 9-9 9s-9-4-9-9 4-9 9-9c2.5 0 4.8 1 6.5 2.6"/></svg>
+        </div>
+        <div>
+          <h4>Un prolongement naturel du PEMD</h4>
+          <p>Le diagnostic PEMD identifie les matériaux — nous prenons le relais pour les faire sortir en réemploi. Conformité assurée, traçabilité documentée.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section class="pour-qui">
+  <div class="container">
+    <div class="container-sm">
+      <div class="section-eyebrow reveal">Pour qui</div>
+      <h2 class="section-title reveal" style="color:#fff;">Conçu pour tous ceux qui génèrent des déchets sur chantier.</h2>
+      <p class="section-lede reveal">Démolition, rénovation, curage : à chaque fois que des matériaux sortent du bâtiment, la question du réemploi se pose. Nous répondons pour vous.</p>
+    </div>
+
+    <div class="pq-grid">
+      <div class="pq-card reveal">
+        <h4>Maîtres d'ouvrage</h4>
+        <p>Transformer la contrainte PEMD en levier bas-carbone, avec un reporting directement intégrable à vos engagements RSE.</p>
+      </div>
+      <div class="pq-card reveal">
+        <h4>Entreprises générales</h4>
+        <p>Décharger vos équipes chantier de la gestion multi-filières et sécuriser les taux de réemploi promis à vos clients.</p>
+      </div>
+      <div class="pq-card reveal">
+        <h4>Démolisseurs</h4>
+        <p>Valoriser les matériaux déposés au-delà du tri réglementaire, en s'appuyant sur un réseau qualifié de repreneurs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section class="cas">
+  <div class="container">
+    <div class="container-sm">
+      <div class="section-eyebrow reveal">Ils nous ont fait confiance</div>
+      <h2 class="section-title reveal">Des chantiers valorisés récemment.</h2>
+      <p class="section-lede reveal">Des déchets qui auraient fini en benne sont repartis vers un repreneur. Moins de tonnes en décharge, plus de CO₂ évité.</p>
+    </div>
+
+    <div class="cas-grid">
+      <article class="cas-card reveal">
+        <div class="cas-visual"><div class="grain"></div><span class="cas-kind">Valorisation</span></div>
+        <div class="cas-body">
+          <div class="cas-meta"><span class="cas-client">Plendi / VINCI</span> · Paris</div>
+          <h3 class="cas-title">Hôtel George V</h3>
+          <p class="cas-desc">Valorisation de matériaux issus de travaux de rénovation d'un palace parisien, réorientés vers les filières du réemploi.</p>
+          <div class="cas-kpis">
+            <span class="cas-kpi"><strong>Valorisation</strong></span>
+            <span class="cas-kpi">Hôtellerie</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cas-card reveal">
+        <div class="cas-visual"><div class="grain"></div><span class="cas-kind">Valorisation</span></div>
+        <div class="cas-body">
+          <div class="cas-meta"><span class="cas-client">Essor</span> · La Défense</div>
+          <h3 class="cas-title">Colline de l'Arche</h3>
+          <p class="cas-desc">Sortie de matériaux sur un chantier tertiaire majeur à La Défense, vers des repreneurs qualifiés du réemploi.</p>
+          <div class="cas-kpis">
+            <span class="cas-kpi"><strong>Valorisation</strong></span>
+            <span class="cas-kpi">Tertiaire</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cas-card reveal">
+        <div class="cas-visual"><div class="grain"></div><span class="cas-kind">Valorisation</span></div>
+        <div class="cas-body">
+          <div class="cas-meta"><span class="cas-client">Eiffage Habitat</span> · Paris</div>
+          <h3 class="cas-title">Petit &amp; Chaufferie</h3>
+          <p class="cas-desc">Coordination de la sortie des matériaux en phase curage sur une opération logement, vers les filières de valorisation.</p>
+          <div class="cas-kpis">
+            <span class="cas-kpi"><strong>Valorisation</strong></span>
+            <span class="cas-kpi">Logement</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="cas-link reveal">
+      <a href="realisations.html">Voir toutes nos réalisations →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="container-sm">
+    <h2 class="reveal">Un chantier à valoriser ?</h2>
+    <p class="reveal">Diagnostic PEMD en main, ou en phase de préparation — dites-nous ce que vous avez à sortir, on regarde ensemble les filières possibles.</p>
+    <a class="btn btn-primary reveal" href="https://calendly.com/benjamin-sebahoun/revali-estimez-vos-besoins" target="_blank" rel="noopener">Prendre RDV</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <div>© Revali — Faire des déchets la première ressource du BTP</div>
+    <div>
+      <a href="index.html">Accueil</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="mailto:contact@revali.fr">contact@revali.fr</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ====== CALCULATEUR TJM ======
+  (function() {
+    const TJM = 400;
+    const TJM_PER_MONTH = 2;
+    const tabs = document.querySelectorAll('.calc-tab');
+    const input = document.getElementById('calcDuration');
+    const unitLabel = document.getElementById('calcUnitLabel');
+    const totalEl = document.getElementById('calcTotal');
+    const detailEl = document.getElementById('calcDetail');
+    const incBtn = document.getElementById('calcInc');
+    const decBtn = document.getElementById('calcDec');
+    let unit = 'mois';
+
+    function format(n) { return n.toLocaleString('fr-FR'); }
+
+    function compute() {
+      let v = parseInt(input.value);
+      if (isNaN(v) || v < 1) v = 1;
+      input.value = v;
+      let cost;
+      if (unit === 'mois') {
+        cost = v * TJM_PER_MONTH * TJM;
+        detailEl.innerHTML = `${v}&nbsp;mois × 2&nbsp;TJM/mois × 400&nbsp;€ HT`;
+      } else {
+        cost = v * TJM;
+        const label = v > 1 ? 'journées' : 'journée';
+        detailEl.innerHTML = `${v}&nbsp;${label} × 400&nbsp;€ HT`;
+      }
+      totalEl.innerHTML = format(cost);
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        unit = tab.dataset.unit;
+        unitLabel.textContent = unit;
+        input.value = unit === 'mois' ? 3 : 6;
+        compute();
+      });
+    });
+
+    input.addEventListener('input', compute);
+    incBtn.addEventListener('click', () => {
+      input.value = (parseInt(input.value) || 0) + 1;
+      compute();
+    });
+    decBtn.addEventListener('click', () => {
+      input.value = Math.max(1, (parseInt(input.value) || 0) - 1);
+      compute();
+    });
+
+    compute();
+  })();
+</script>
+
+</body>
+</html>
