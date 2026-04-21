@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nos réalisations — Revali</title>
+<meta name="description" content="Nos opérations de réemploi, sourcing, valorisation et diagnostic ressources — en partenariat avec les grands acteurs du BTP français." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --violet: #5e17bb;
+    --violet-deep: #3d0a85;
+    --violet-soft: #f3ecff;
+    --violet-ghost: #faf6ff;
+    --ink: #14061f;
+    --ink-soft: #4b3b5f;
+    --ink-faint: #8879a0;
+    --line: #ece4fa;
+    --bg: #ffffff;
+    --radius: 20px;
+    --radius-lg: 28px;
+    --shadow-soft: 0 30px 80px -30px rgba(94,23,187,.25);
+    --shadow-hover: 0 40px 100px -20px rgba(94,23,187,.35);
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  /* ====== NAV ====== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(14px);
+    background: rgba(255,255,255,.78);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s var(--ease), background .3s var(--ease);
+  }
+  .nav.scrolled { border-bottom-color: var(--line); background: rgba(255,255,255,.92); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand img { height: 38px; width: auto; }
+  .brand-wordmark {
+    font-family: 'Fredoka', 'Inter', sans-serif; font-weight: 700;
+    font-size: 30px; letter-spacing: -.01em; color: var(--violet); line-height: 1;
+  }
+  .nav-links { display: flex; gap: 34px; align-items: center; }
+  .nav-links a {
+    font-size: 15px; font-weight: 500; color: var(--ink-soft);
+    position: relative; padding: 6px 0; transition: color .2s var(--ease);
+  }
+  .nav-links a:hover { color: var(--violet); }
+  .nav-links a:not(.nav-cta)::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    height: 2px; width: 0; background: var(--violet);
+    transition: width .25s var(--ease);
+  }
+  .nav-links a:not(.nav-cta):hover::after { width: 100%; }
+  .nav-links a.is-active { color: var(--violet); }
+  .nav-links a.is-active::after { width: 100%; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 22px; border-radius: 999px;
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    cursor: pointer; border: 0; transition: all .25s var(--ease);
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--violet); color: #fff; box-shadow: 0 10px 30px -10px rgba(94,23,187,.55); }
+  .btn-primary:hover { background: var(--violet-deep); transform: translateY(-2px); box-shadow: 0 20px 40px -10px rgba(94,23,187,.65); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--violet); color: var(--violet); }
+  .btn .arrow { transition: transform .25s var(--ease); }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .nav-links a.nav-cta,
+  .nav-links a.nav-cta:hover { padding: 11px 20px; font-size: 14px; color: #fff; }
+
+  .burger { display: none; background: none; border: 0; width: 40px; height: 40px; align-items: center; justify-content: center; cursor: pointer; }
+  .burger span { width: 22px; height: 2px; background: var(--ink); position: relative; }
+  .burger span::before, .burger span::after { content: ""; position: absolute; left: 0; width: 22px; height: 2px; background: var(--ink); }
+  .burger span::before { top: -7px; } .burger span::after { top: 7px; }
+
+  /* ====== PAGE HERO ====== */
+  .page-hero {
+    position: relative; overflow: hidden;
+    padding: 80px 0 60px;
+  }
+  .page-hero::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(1000px 500px at 85% -10%, rgba(94,23,187,.18), transparent 60%),
+      radial-gradient(800px 400px at -10% 30%, rgba(94,23,187,.10), transparent 60%);
+  }
+  .page-hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(94,23,187,.12) 1px, transparent 0);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,.6), transparent 70%);
+  }
+  .page-hero .container { position: relative; z-index: 1; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--violet-soft); color: var(--violet);
+    font-size: 13px; font-weight: 600; letter-spacing: .02em;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 0 4px rgba(94,23,187,.15); }
+
+  .page-hero h1 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 700;
+    font-size: clamp(40px, 6vw, 80px); line-height: 1; letter-spacing: -.035em;
+    margin: 22px 0 20px; color: var(--ink); max-width: 16ch;
+  }
+  .page-hero h1 .accent {
+    background: linear-gradient(120deg, var(--violet) 0%, #8b3df2 50%, var(--violet) 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    background-size: 200% auto; animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  .page-hero p.lede { font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-soft); max-width: 62ch; margin: 0; }
+
+  .hero-stats {
+    margin-top: 60px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    padding: 32px 40px;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+  .stat .num {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 40px; line-height: 1; color: var(--violet); letter-spacing: -.03em;
+  }
+  .stat .label { font-size: 13px; color: var(--ink-soft); margin-top: 8px; }
+
+  /* ====== FILTERS ====== */
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 10px; padding: 60px 0 30px;
+    border-bottom: 1px solid var(--line); margin-bottom: 50px;
+  }
+  .filter {
+    padding: 10px 18px; border-radius: 999px; background: #fff; border: 1.5px solid var(--line);
+    font-size: 14px; font-weight: 500; color: var(--ink-soft); cursor: pointer;
+    transition: all .2s var(--ease);
+  }
+  .filter:hover { border-color: var(--violet); color: var(--violet); }
+  .filter.active { background: var(--violet); border-color: var(--violet); color: #fff; }
+  .filter .count { opacity: .6; margin-left: 6px; font-size: 12px; }
+  .filter.active .count { opacity: .85; }
+
+  /* ====== GRID ====== */
+  .realisations {
+    padding: 0 0 120px;
+  }
+  .real-grid {
+    display: grid; gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .real-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+  }
+  .real-card:hover {
+    transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: transparent;
+  }
+  .real-card.hidden { display: none; }
+
+  .real-visual {
+    position: relative; aspect-ratio: 16/10; overflow: hidden;
+  }
+  .real-visual-bg { position: absolute; inset: 0; transition: transform .8s var(--ease); }
+  .real-card:hover .real-visual-bg { transform: scale(1.05); }
+
+  .real-visual-bg.v1 { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%), linear-gradient(135deg, #5e17bb 0%, #8b3df2 60%, #c09bff 100%); }
+  .real-visual-bg.v2 { background: radial-gradient(circle at 70% 70%, rgba(255,255,255,.2), transparent 60%), linear-gradient(135deg, #2a0959 0%, #5e17bb 100%); }
+  .real-visual-bg.v3 { background: radial-gradient(circle at 50% 20%, rgba(255,255,255,.25), transparent 50%), linear-gradient(160deg, #3d0a85 0%, #5e17bb 80%); }
+  .real-visual-bg.v4 { background: linear-gradient(135deg, #5e17bb 0%, #3d0a85 100%); }
+  .real-visual-bg.v5 { background: radial-gradient(circle at 80% 30%, rgba(255,255,255,.2), transparent 50%), linear-gradient(125deg, #8b3df2 0%, #5e17bb 100%); }
+
+  .real-grain {
+    position: absolute; inset: 0; opacity: .35; mix-blend-mode: overlay;
+    background-image: radial-gradient(rgba(255,255,255,.25) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  .real-kind {
+    position: absolute; top: 18px; left: 18px; z-index: 2;
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.18); backdrop-filter: blur(10px);
+    color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+
+  .real-body { padding: 26px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+  .real-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-faint); margin-bottom: 10px; }
+  .real-client { font-weight: 600; color: var(--violet); }
+  .real-sep { opacity: .5; }
+  .real-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700;
+    letter-spacing: -.02em; line-height: 1.15; margin: 0 0 12px;
+  }
+  .real-desc { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 20px; flex: 1; }
+  .real-kpis { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .kpi-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 12px; border-radius: 999px;
+    background: var(--violet-soft); color: var(--violet);
+    font-size: 12.5px; font-weight: 500;
+  }
+  .kpi-pill strong { font-weight: 700; }
+
+  /* ====== CONTACT ====== */
+  #contact { background: linear-gradient(180deg, #fff 0%, var(--violet-ghost) 100%); padding: 80px 0 120px; }
+  .contact-card {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--violet) 0%, var(--violet-deep) 100%);
+    border-radius: 32px; padding: 70px 64px; color: #fff;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center;
+    box-shadow: 0 50px 120px -30px rgba(94,23,187,.6);
+  }
+  .contact-card::before {
+    content: ""; position: absolute; top: -40%; right: -20%; width: 60%; height: 180%;
+    background: radial-gradient(circle, rgba(255,255,255,.12), transparent 60%);
+    pointer-events: none;
+  }
+  .contact-card::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.08) 1px, transparent 0);
+    background-size: 22px 22px; opacity: .6; pointer-events: none;
+  }
+  .contact-card > * { position: relative; z-index: 1; }
+  .contact-card h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.4vw, 46px);
+    font-weight: 700; letter-spacing: -.03em; line-height: 1.05; margin: 0 0 18px;
+  }
+  .contact-card p { opacity: .85; font-size: 17px; max-width: 46ch; margin: 0 0 30px; }
+  .contact-card .btn-primary { background: #fff; color: var(--violet); box-shadow: 0 14px 40px -8px rgba(0,0,0,.25); }
+  .contact-card .btn-primary:hover { background: #f3ecff; color: var(--violet-deep); transform: translateY(-2px); }
+
+  .contact-list { display: flex; flex-direction: column; gap: 18px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 18px; padding: 18px 20px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+    border-radius: 18px; transition: background .25s var(--ease), transform .25s var(--ease);
+  }
+  .contact-item:hover { background: rgba(255,255,255,.14); transform: translateY(-2px); }
+  .contact-item .ic { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .contact-item .t { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+  .contact-item .v { font-size: 16px; font-weight: 600; margin-top: 2px; }
+
+  /* ====== FOOTER ====== */
+  footer { padding: 48px 0; border-top: 1px solid var(--line); background: #fff; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .footer-inner .brand-wordmark { font-size: 22px; }
+  .footer-meta { color: var(--ink-faint); font-size: 14px; }
+  .footer-links { display: flex; gap: 26px; }
+  .footer-links a { color: var(--ink-soft); font-size: 14px; }
+  .footer-links a:hover { color: var(--violet); }
+
+  /* ====== REVEAL ====== */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 1024px) {
+    .real-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .burger { display: inline-flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 76px; left: 0; right: 0;
+      background: #fff; border-bottom: 1px solid var(--line);
+      padding: 22px 28px; gap: 18px;
+    }
+    .nav-links.open a { font-size: 17px; }
+    .real-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr; padding: 24px; }
+    .contact-card { grid-template-columns: 1fr; padding: 48px 28px; gap: 40px; }
+    .page-hero { padding: 50px 0 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand" aria-label="Revali, accueil">
+      <img src="logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+      <span class="brand-wordmark" style="display:none;">Revali</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#services">Services</a>
+      <a href="realisations.html" class="is-active">Nos réalisations</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://calendly.com/revali" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
+        Prendre RDV
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+    <button class="burger" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow reveal"><span class="dot"></span> Nos réalisations</span>
+    <h1 class="reveal">Des chantiers qui prouvent que <span class="accent">c'est possible</span>.</h1>
+    <p class="lede reveal">
+      Opérations de réemploi, sourcing de matériaux, valorisation et diagnostics ressources — menées avec
+      les grands acteurs du BTP français, des collectivités et des majors de la construction.
+    </p>
+
+    <div class="hero-stats reveal">
+      <div class="stat"><div class="num">11</div><div class="label">Opérations menées avec nos partenaires BTP.</div></div>
+      <div class="stat"><div class="num">+90 t</div><div class="label">de CO₂eq évitées sur les opérations mesurées.</div></div>
+      <div class="stat"><div class="num">+130 t</div><div class="label">de déchets détournés de la mise en décharge.</div></div>
+      <div class="stat"><div class="num">8</div><div class="label">grands clients, du privé au public.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS + GRID -->
+<section class="realisations">
+  <div class="container">
+    <div class="filters reveal" id="filters">
+      <button class="filter active" data-filter="all">Toutes <span class="count">(11)</span></button>
+      <button class="filter" data-filter="reemploi">Réemploi <span class="count">(4)</span></button>
+      <button class="filter" data-filter="sourcing">Sourcing <span class="count">(3)</span></button>
+      <button class="filter" data-filter="valorisation">Valorisation <span class="count">(3)</span></button>
+      <button class="filter" data-filter="diagnostic">Diagnostic ressources <span class="count">(1)</span></button>
+    </div>
+
+    <div class="real-grid" id="grid">
+
+      <!-- 1 -->
+      <article class="real-card reveal" data-kind="reemploi">
+        <div class="real-visual">
+          <div class="real-visual-bg v1"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Réemploi</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">GTM Bâtiment</span><span class="real-sep">·</span><span>Villeneuve-Saint-Georges</span></div>
+          <h3 class="real-title">GTM — Les graviers</h3>
+          <p class="real-desc">130 sanitaires (lavabos, éviers, WC) démontés et triés sur un chantier en Île-de-France, puis orientés vers des filières spécialisées dans le réemploi — au lieu d'être traités comme des déchets.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>5,8</strong>&nbsp;tCO₂eq évitées</span>
+            <span class="kpi-pill"><strong>750 kg</strong>&nbsp;de déchets évités</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="real-card reveal" data-kind="sourcing">
+        <div class="real-visual">
+          <div class="real-visual-bg v2"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Sourcing</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Eiffage</span><span class="real-sep">·</span><span>Paris</span></div>
+          <h3 class="real-title">Approvisionnement de 600 m² de pavés de réemploi</h3>
+          <p class="real-desc">Mobilisation de notre réseau pour identifier, qualifier et livrer 600 m² de pavés adaptés aux exigences techniques et esthétiques du chantier — logistique incluse.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>18,4</strong>&nbsp;tCO₂eq évitées</span>
+            <span class="kpi-pill"><strong>130 t</strong>&nbsp;de déchets évités</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="real-card reveal" data-kind="valorisation">
+        <div class="real-visual">
+          <div class="real-visual-bg v3"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Valorisation</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Unispace</span><span class="real-sep">·</span><span>Paris</span></div>
+          <h3 class="real-title">Réhabilitation de bureaux — 800 m² de moquette &amp; 700 m² de faux plafond</h3>
+          <p class="real-desc">Identification des gisements, recherche des repreneurs et coordination logistique pour détourner 1 500 m² de matériaux de la mise en décharge lors d'une rénovation de plateaux tertiaires.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>0,6</strong>&nbsp;tCO₂eq évitées</span>
+            <span class="kpi-pill"><strong>2,2 t</strong>&nbsp;de déchets évités</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="real-card reveal" data-kind="valorisation">
+        <div class="real-visual">
+          <div class="real-visual-bg v4"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Valorisation</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Elan</span><span class="real-sep">·</span><span>Paris</span></div>
+          <h3 class="real-title">Société Foncière Lyonnaise — R+5</h3>
+          <p class="real-desc">Récupération de 600 m² de dalles de faux plafond métallique sur un chantier de déconstruction, avec gestion d'une logistique d'accès complexe en partenariat avec Tricycle.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>0,43</strong>&nbsp;tCO₂eq évitées</span>
+            <span class="kpi-pill"><strong>1,3 t</strong>&nbsp;de déchets évités</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="real-card reveal" data-kind="reemploi">
+        <div class="real-visual">
+          <div class="real-visual-bg v5"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Réemploi</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">GTM Bâtiment</span><span class="real-sep">·</span><span>Villeneuve-Saint-Georges</span></div>
+          <h3 class="real-title">GTM — Rue de Paris</h3>
+          <p class="real-desc">Seconde collaboration avec GTM : 20 WC et 13 lavabos démontés soigneusement, puis redirigés vers des acteurs du réemploi — plutôt que la benne à déchets.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>8,5</strong>&nbsp;tCO₂eq évitées</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="real-card reveal" data-kind="sourcing">
+        <div class="real-visual">
+          <div class="real-visual-bg v1"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Sourcing</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Mazaud Construction</span><span class="real-sep">·</span><span>Lyon</span></div>
+          <h3 class="real-title">Le Jardin des Balmes</h3>
+          <p class="real-desc">Accompagnement en sourcing multi-matériaux pour le chantier Jardin des Balmes : identification, qualification et sécurisation des gisements, pour intégrer le réemploi dès la phase d'exécution.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill">En cours</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="real-card reveal" data-kind="valorisation">
+        <div class="real-visual">
+          <div class="real-visual-bg v2"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Valorisation</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Eiffage Construction Habitat</span><span class="real-sep">·</span><span>Paris 14ᵉ</span></div>
+          <h3 class="real-title">Petit &amp; Chaufferie</h3>
+          <p class="real-desc">Identification et valorisation de gisements issus de la réhabilitation urbaine, orientés vers des filières capables de donner une seconde vie aux matériaux.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill">Opération en cours</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="real-card reveal" data-kind="reemploi">
+        <div class="real-visual">
+          <div class="real-visual-bg v3"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Réemploi</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Mairie de Fleury-les-Aubrais</span><span class="real-sep">·</span><span>Fleury-les-Aubrais</span></div>
+          <h3 class="real-title">EHPAD de Longuève</h3>
+          <p class="real-desc">Opération publique de rénovation : recherche de repreneurs, gestion des flux sortants et bilan carbone détaillé. Un exemple d'exemplarité des collectivités sur le réemploi.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>52</strong>&nbsp;tCO₂eq évitées</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="real-card reveal" data-kind="reemploi">
+        <div class="real-visual">
+          <div class="real-visual-bg v4"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Réemploi</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Plendi (VINCI)</span><span class="real-sep">·</span><span>Paris 8ᵉ</span></div>
+          <h3 class="real-title">Hôtel George V</h3>
+          <p class="real-desc">45 WC suspendus déposés sur un chantier à haute exigence technique et architecturale, orientés vers des acteurs spécialisés du réemploi — preuve que le réemploi s'intègre aux projets de prestige.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>4,8</strong>&nbsp;tCO₂eq évitées</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="real-card reveal" data-kind="sourcing">
+        <div class="real-visual">
+          <div class="real-visual-bg v5"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Sourcing</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Bouygues Bâtiment IDF</span><span class="real-sep">·</span><span>Paris 13ᵉ</span></div>
+          <h3 class="real-title">ZAC Paul Bourget</h3>
+          <p class="real-desc">Approvisionnement en pavés de réemploi sur 100 m², avec sourcing et qualification des lots répondant aux exigences techniques du chantier.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill"><strong>3,1</strong>&nbsp;tCO₂eq évitées</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="real-card reveal" data-kind="diagnostic">
+        <div class="real-visual">
+          <div class="real-visual-bg v1"></div>
+          <div class="real-grain"></div>
+          <span class="real-kind">Diagnostic ressources</span>
+        </div>
+        <div class="real-body">
+          <div class="real-meta"><span class="real-client">Essor</span><span class="real-sep">·</span><span>La Défense</span></div>
+          <h3 class="real-title">Colline de l'Arche</h3>
+          <p class="real-desc">Diagnostic ressources complet : visite terrain, rapport opérationnel avec solutions de repreneurs concrètes et calcul des émissions de CO₂ évitées comparé à une mise en décharge.</p>
+          <div class="real-kpis">
+            <span class="kpi-pill">Diag ressources</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-card reveal">
+      <div>
+        <h2>Un projet de réemploi ?<br/>Parlons-en.</h2>
+        <p>Chaque chantier est différent. Réservez un créneau, on regarde ensemble comment transformer vos déchets en ressources.</p>
+        <a href="https://calendly.com/revali" target="_blank" rel="noopener" class="btn btn-primary">
+          Prendre rendez-vous
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="contact-list">
+        <a href="mailto:contact@revali.fr" class="contact-item">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/></svg></div>
+          <div><div class="t">E-mail</div><div class="v">contact@revali.fr</div></div>
+        </a>
+        <a href="tel:+33604037512" class="contact-item">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V21a1 1 0 0 1-1.1 1 19 19 0 0 1-8.3-3 19 19 0 0 1-6-6 19 19 0 0 1-3-8.3A1 1 0 0 1 4.6 3h4.09a1 1 0 0 1 1 .75c.1.85.3 1.68.6 2.47a1 1 0 0 1-.22 1.05L8.3 8.95a16 16 0 0 0 6.75 6.75l1.68-1.68a1 1 0 0 1 1.05-.22c.79.3 1.62.5 2.47.6a1 1 0 0 1 .75 1z"/></svg></div>
+          <div><div class="t">Téléphone</div><div class="v">06 04 03 75 12</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" style="height:30px;" />
+      <span class="brand-wordmark" style="display:none;">Revali</span>
+    </a>
+    <div class="footer-links">
+      <a href="index.html#services">Services</a>
+      <a href="realisations.html">Réalisations</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="footer-meta">© <span id="year"></span> Revali — Faire des déchets la première ressource du BTP.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // filters
+  const filters = document.querySelectorAll('.filter');
+  const cards = document.querySelectorAll('.real-card');
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(f => f.classList.remove('active'));
+      btn.classList.add('active');
+      const kind = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = kind === 'all' || card.dataset.kind === kind;
+        card.classList.toggle('hidden', !match);
+      });
+    });
+  });
+
+  // mobile nav
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
